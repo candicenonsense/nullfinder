@@ -12,7 +12,10 @@ compile:
 g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
 
 usage: 
-./nullf [--extract] datafile
+nullfinder 0.1 by Candice Quates May 2015
+
+Usage: ./nullf [--extract] [--nulls 8] filename(s) 
+
 
 (output snippet)
 
