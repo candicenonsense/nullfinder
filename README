@@ -1,0 +1,28 @@
+nullfinder
+==========
+
+Small program for extracting data from sparse files with unknown structures 
+(like GPU memory dumps.)
+
+nullfinder uses blocks of nulls as breaks between data.  It can then extract
+data at the addresses between nulls.   It will continue to glob nulls together,
+allowing a map to be made.  By default the program uses 8 nulls as a marker.
+
+compile:
+g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
+
+usage: 
+./nullf [--extract] datafile
+
+(output snippet)
+
+71fffc nulls begin 722800 end 
+722800 data begins 294001f ends
+2940017 nulls begin 2940023 end 
+
+The program will also extract the data fragments into location-marked files
+using the --extract option.
+
+bugs:
+An argument to change the null-block length exists but does not work.
+
