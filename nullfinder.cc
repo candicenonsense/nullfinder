@@ -116,7 +116,7 @@ std::cout <<"null size "<< nullssize << std::endl;
         for (int n=0; n < mfile->size ; n++) {
 	    current=(uint8_t)*(mfile->buffer+n);
 	    if (n==0 && current != 0) 
-               std::cout<< std::hex <<n <<" data begin ";
+               std::cout<< std::hex <<n <<" data begins ";
 	    if (current == 0) {
 		nullcount++;
 		if (range != 1 && nullcount == 8) {
@@ -138,7 +138,7 @@ std::cout <<"null size "<< nullssize << std::endl;
 		// if we've changed state, note that.
 		if (range == 1) {
                     std::cout<< std::hex <<n <<" end "<< std::endl;
-                    std::cout<< std::hex <<n <<" data begin ";
+                    std::cout<< std::hex <<n <<" data begins ";
 		    startaddr=n;
 		}
 		range=0;
@@ -148,11 +148,11 @@ std::cout <<"null size "<< nullssize << std::endl;
         // If we've reached EOF and are in a block of data, 
 	// extract if asked.	
 	if (nullcount==0) {
-            std::cout<< std::hex <<n<<" ends" << std::endl;
+            std::cout<< std::hex <<mfile->size<<" ends" << std::endl;
 	    if (extract) {
 		std::vector<unsigned char> image;
-		image.resize(n-7-startaddr);
-		for (int x=0,y=startaddr; y<n-7; x++,y++) {
+		image.resize((mfile->size)-7-startaddr);
+		for (int x=0,y=startaddr; y<(mfile->size)-7; x++,y++) {
 		    image[x]=(unsigned char)*(mfile->buffer+y);
 		}
 		writeExtracted(image,std::string(filename)+std::to_string((int)startaddr));
