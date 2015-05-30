@@ -5,7 +5,8 @@
 
     Takes argument of a file of dumped gpu memory, attempts to divine structure 
     by searching for blocks of nulls which have been added for padding. 
-    Default block of nulls to search for is 8.  extracting is only for 8-null blocks.
+    Default block of nulls to search for is 8.  extracting is only working 
+    for 8-null blocks.  Not reporting really really short (1-2 byte blocks)
 
     File parsing code lifted from sdhash, apache license (Roussev/Quates 2013)
     General structure and command line arguments lifted from zsniff. (apache license)
@@ -120,8 +121,9 @@ std::cout <<"null size "<< nullssize << std::endl;
 	    if (current == 0) {
 		nullcount++;
 		if (range != 1 && nullcount == 8) {
-                    std::cout<< std::hex <<n <<" ends" << std::endl;
-                    std::cout<< std::hex <<n-8 <<" nulls begin " ;
+                    std::cout<< std::hex <<n <<" ends, size ";
+		    std::cout << std::dec << n-startaddr << std::endl;
+                    std::cout<< std::hex <<n <<" nulls begin " ;
 		    // extract data 
 		    if (extract) {
 			std::vector<unsigned char> image;
@@ -129,7 +131,9 @@ std::cout <<"null size "<< nullssize << std::endl;
 			for (int x=0,y=startaddr; y<n-7; x++,y++) {
 			    image[x]=(unsigned char)*(mfile->buffer+y);
 			}
-			writeExtracted(image,std::string(filename)+std::to_string((int)startaddr));
+			std::stringstream builder;
+			builder << filename<< "-"<< std::hex << startaddr;
+			writeExtracted(image,builder.str());
 		    }
 		    range=1;
 		    startaddr=0;
@@ -148,14 +152,17 @@ std::cout <<"null size "<< nullssize << std::endl;
         // If we've reached EOF and are in a block of data, 
 	// extract if asked.	
 	if (nullcount==0) {
-            std::cout<< std::hex <<mfile->size<<" ends" << std::endl;
+            std::cout<< std::hex <<mfile->size<<" ends, " ;
+	    std::cout << std::dec << (mfile->size)-startaddr << std::endl;
 	    if (extract) {
 		std::vector<unsigned char> image;
 		image.resize((mfile->size)-7-startaddr);
 		for (int x=0,y=startaddr; y<(mfile->size)-7; x++,y++) {
 		    image[x]=(unsigned char)*(mfile->buffer+y);
 		}
-		writeExtracted(image,std::string(filename)+std::to_string((int)startaddr));
+	        std::stringstream builder;
+	        builder << filename<< "-"<< std::hex << startaddr;
+		writeExtracted(image,builder.str());
 	    }
 	}
     } // loop for parsing multiple files

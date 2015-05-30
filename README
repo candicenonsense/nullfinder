@@ -16,13 +16,25 @@ usage:
 
 (output snippet)
 
-71fffc nulls begin 722800 end 
-722800 data begins 294001f ends
-2940017 nulls begin 2940023 end 
+0 data begins 2801a ends, size 163866
+2801a nulls begin 2ad18 end 
+2ad18 data begins 2f3c07 ends, size 2920175
+2f3c07 nulls begin 2f5868 end 
+2f5868 data begins 2f5a07 ends, size 415
+2f5a07 nulls begin 2f5a08 end 
+2f5a08 data begins 2f5b32 ends, size 298
+2f5b32 nulls begin 2f5bc9 end 
+2f5bc9 data begins 2f5bd4 ends, size 11
+2f5bd4 nulls begin 2f5bf1 end 
+2f5bf1 data begins 2f5bfc ends, size 11
+2f5bfc nulls begin 2f5c00 end 
+2f5c00 data begins 2f7354 ends, size 5972
 
 The program will also extract the data fragments into location-marked files
 using the --extract option.
 
+Files are created as filename-address.extract.
+
 bugs:
 An argument to change the null-block length exists but does not work.
-
+Program fragments are created in same directory as source.
