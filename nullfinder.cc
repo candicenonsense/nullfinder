@@ -26,7 +26,7 @@ g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
 
 
 
-#define VERSION "nullfind 0.1 by Candice Quates May 2015"
+#define VERSION "nullfind 0.2 by Candice Quates July 2015"
 
 
 #include "util.h"
@@ -108,14 +108,13 @@ std::cout <<"null size "<< nullssize << std::endl;
         int error=0;
 	std::cout << "nullf processing: "<< filename << std::endl;
         uint8_t current=0;
-	// There is some integer size mismatching to be fixed here.
-	int range=0;
-	int nullcount=0;
-	int startaddr=0;
+	uint64_t range=0;
+	uint64_t nullcount=0;
+	uint64_t startaddr=0;
         // I am well aware that there are prettier and more
         // elegant ways to do this, but this is much faster 
         // than I expected it to be (ie, a few minutes on a VM for 2gb file)
-        for (int n=0; n < mfile->size ; n++) {
+        for (uint64_t n=0; n < mfile->size ; n++) {
 	    current=(uint8_t)*(mfile->buffer+n);
 	    if (n==0 && current != 0) 
                std::cout<< std::hex <<n <<" data begins ";
