@@ -28,6 +28,7 @@ g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
 
 #define VERSION "nullfind 0.1 by Candice Quates May 2015"
 
+
 #include "util.h"
 
 
@@ -120,15 +121,15 @@ std::cout <<"null size "<< nullssize << std::endl;
                std::cout<< std::hex <<n <<" data begins ";
 	    if (current == 0) {
 		nullcount++;
-		if (range != 1 && nullcount == 8) {
+		if (range != 1 && nullcount == nullssize) {
                     std::cout<< std::hex <<n <<" ends, size ";
 		    std::cout << std::dec << n-startaddr << std::endl;
                     std::cout<< std::hex <<n <<" nulls begin " ;
 		    // extract data 
 		    if (extract) {
 			std::vector<unsigned char> image;
-			image.resize(n-7-startaddr);
-			for (int x=0,y=startaddr; y<n-7; x++,y++) {
+			image.resize(n-(nullssize-1)-startaddr);
+			for (int x=0,y=startaddr; y<n-(nullssize-1); x++,y++) {
 			    image[x]=(unsigned char)*(mfile->buffer+y);
 			}
 			std::stringstream builder;
@@ -156,8 +157,8 @@ std::cout <<"null size "<< nullssize << std::endl;
 	    std::cout << std::dec << (mfile->size)-startaddr << std::endl;
 	    if (extract) {
 		std::vector<unsigned char> image;
-		image.resize((mfile->size)-7-startaddr);
-		for (int x=0,y=startaddr; y<(mfile->size)-7; x++,y++) {
+		image.resize((mfile->size)-(nullssize-1)-startaddr);
+		for (int x=0,y=startaddr; y<(mfile->size)-(nullssize-1); x++,y++) {
 		    image[x]=(unsigned char)*(mfile->buffer+y);
 		}
 	        std::stringstream builder;
