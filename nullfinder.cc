@@ -128,7 +128,7 @@ std::cout <<"null size "<< nullssize << std::endl;
 		    if (extract) {
 			std::vector<unsigned char> image;
 			image.resize(n-(nullssize-1)-startaddr);
-			for (int x=0,y=startaddr; y<n-(nullssize-1); x++,y++) {
+			for (uint64_t x=0,y=startaddr; y<n-(nullssize-1); x++,y++) {
 			    image[x]=(unsigned char)*(mfile->buffer+y);
 			}
 			std::stringstream builder;

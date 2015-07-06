@@ -2,17 +2,19 @@ nullfinder
 ==========
 
 Small program for extracting data from sparse files with unknown structures 
-(like GPU memory dumps.)
+like GPU memory dumps which are suspected to contain padding.
 
 nullfinder uses blocks of nulls as breaks between data.  It can then extract
 data at the addresses between nulls.   It will continue to glob nulls together,
 allowing a map to be made.  By default the program uses 8 nulls as a marker.
+Depending on the particular dump image, larger (as large as a megabyte) blocks
+of nulls may be informative.
 
 compile:
 g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
 
 usage: 
-nullfinder 0.1 by Candice Quates May 2015
+nullfinder 0.2 by Candice Quates July 2015
 
 Usage: ./nullf [--extract] [--nulls 8] filename(s) 
 
@@ -39,5 +41,4 @@ using the --extract option.
 Files are created as filename-address.extract.
 
 bugs:
-An argument to change the null-block length exists but does not work.
 Program fragments are created in same directory as source.
