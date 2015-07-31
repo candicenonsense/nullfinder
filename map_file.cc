@@ -28,7 +28,7 @@ processed_file_t *process_file(const char *fname) {
 
     mfile->buffer = (uint8_t*)alloc_check(ALLOC_ZERO,sizeof(uint8_t)*file_stat.st_size, "read_file", "mfile", ERROR_EXIT);
     is->read((char*)mfile->buffer,file_stat.st_size);
-    uint64_t res=is->gcount();
+    int64_t res=is->gcount();
     if( res != file_stat.st_size) {
         fprintf( stderr, "read failed: %s.\n", strerror( errno));
         free( mfile);

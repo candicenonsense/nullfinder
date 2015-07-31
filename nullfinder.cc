@@ -62,7 +62,7 @@ main(int argc, char *argv[])
         return 1;
     }   
     bool nullsm=false;
-    int nullssize=8;
+    uint32_t nullssize=8;
     // look for extract and nulls size
     for (int i=0; i<argc; i++) {
         if (std::string("--extract").compare(std::string(argv[i]))==0) {
@@ -81,9 +81,8 @@ main(int argc, char *argv[])
             nullsm=true;
         }
     }
-std::cout <<"null size "<< nullssize << std::endl;
     nullsm=false;
-    //loop for multiple files here 
+    //loop for multiple files here -- from prior code but does work.
     for (int i=1; i<argc; i++) {
         if (std::string("--extract").compare(std::string(argv[i]))==0) {
             continue;
@@ -105,7 +104,6 @@ std::cout <<"null size "<< nullssize << std::endl;
             std::cerr << "nullf: file " << filename << " empty or not found" << std::endl;
             return 1;
         }
-        int error=0;
 	std::cout << "nullf processing: "<< filename << std::endl;
         uint8_t current=0;
 	uint64_t range=0;
@@ -157,7 +155,7 @@ std::cout <<"null size "<< nullssize << std::endl;
 	    if (extract) {
 		std::vector<unsigned char> image;
 		image.resize((mfile->size)-(nullssize-1)-startaddr);
-		for (int x=0,y=startaddr; y<(mfile->size)-(nullssize-1); x++,y++) {
+		for (uint64_t x=0,y=startaddr; y<(mfile->size)-(nullssize-1); x++,y++) {
 		    image[x]=(unsigned char)*(mfile->buffer+y);
 		}
 	        std::stringstream builder;
