@@ -1,12 +1,12 @@
 
 /** File: nullfinder.cc
     Author: Candice Quates 
-    Program: gpunullfinder
+    Program: nullfinder
 
     Takes argument of a file of dumped gpu memory, attempts to divine structure 
     by searching for blocks of nulls which have been added for padding. 
-    Default block of nulls to search for is 8.  extracting is only working 
-    for 8-null blocks.  Not reporting really really short (1-2 byte blocks)
+    Default block of nulls to search for is 8.  Much larger blocks are
+    sometimes helpful
 
     File parsing code lifted from sdhash, apache license (Roussev/Quates 2013)
     General structure and command line arguments lifted from zsniff. (apache license)
@@ -26,7 +26,7 @@ g++ -std=c++0x -o nullf nullfinder.cc map_file.cc error.cc
 
 
 
-#define VERSION "nullfind 0.2 by Candice Quates July 2015"
+#define VERSION "nullfinder 0.2 by Candice Quates July 2015"
 
 
 #include "util.h"

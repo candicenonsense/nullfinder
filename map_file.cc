@@ -1,3 +1,7 @@
+/** 
+    sdhash file processing code via sdhash.org under apache license
+    lightly modified by @candicenonsense
+*/
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>

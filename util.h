@@ -1,3 +1,8 @@
+/**
+utilities file from sdhash, used for file reading,
+under apache license sdhash.org
+*/
+
 /*
  * General definitions (Vassil Roussev)
  */
@@ -29,7 +34,6 @@ typedef struct {
 
 processed_file_t *process_file(const char *fname);
 
-void print256( const uint8_t *buffer);
 void *alloc_check( uint32_t alloc_type, uint64_t mem_bytes, const char *fun_name, const char *var_name, uint32_t error_action);
 void *realloc_check( void *buffer, uint64_t new_size);
 

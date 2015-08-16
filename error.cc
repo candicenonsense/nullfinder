@@ -1,6 +1,7 @@
 /**
  * error.c: Generic error/debug routines 
  * author: Vassil Roussev
+ * from sdhash -- sdhash.org 
  */
 
 #include <errno.h>
@@ -46,21 +47,3 @@ void *realloc_check( void *buffer, uint64_t new_size) {
     return mem_chunk;
 }
 
-/**
- * Print a 256-byte buffer
- */
-void print256( const uint8_t *buffer) {
-    uint16_t i;
-    fprintf( stderr, "      ");
-    for( i=0; i<32; i++)
-        fprintf( stderr, "%02x ", i);
-    fprintf( stderr, "\n");
-    
-    for( i=0; i<256; i++) {
-        if( i % 32 == 0)
-            fprintf( stderr, "%04x: ", i);
-        fprintf( stderr, "%02x ", buffer[i]);
-        if( i % 32 == 31)
-            fprintf( stderr, "\n");
-    }
-}
